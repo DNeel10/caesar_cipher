@@ -14,41 +14,36 @@
 #   if the shifted number is greater than 90
 #     subtract 25 from it
 
-
-
 def caesar_cipher(string, shift)
-    # create an array of the characters in the given string
-    string_array = string.split("")
-    # convert the characters in the array to their integer counterpart
-    sub_array = string_array.map {|char| char.ord}
-    
-    #shift the integers by the shift modifier, keeping the case the same, and looping from z back to a
-    shifted_array = sub_array.map do |num|
-      if num.between?(65, 90) then
-        if (num + shift) > 90 then
-          (num + shift) - 25
-        else
-          (num + shift)
-        end
-      elsif (num + shift) > 122 then
+  # create an array of the characters in the given string
+  string_array = string.split('')
+  # convert the characters in the array to their integer counterpart
+  sub_array = string_array.map(&:ord)
+
+  # shift the integers by the shift modifier, keeping the case the same, and looping from z back to a
+  shifted_array = sub_array.map do |num|
+    if num.between?(65, 90)
+      if (num + shift) > 90
         (num + shift) - 25
-      elsif num < 65 then
-        num
       else
-        num + shift
+        (num + shift)
       end
+    elsif (num + shift) > 122
+      (num + shift) - 25
+    elsif num < 65
+      num
+    else
+      num + shift
     end
-  
-    #convert the numbers back to a character, and join it back into a string
-    puts shifted_array.map {|num| num.chr}.join("")
-    
   end
-  
-  print "Enter the string to encode: "
-  string = gets.chomp 
-  
-  print "Enter the cipher key (shift amount): "
-  shift = gets.chomp.to_i
-  
-  caesar_cipher(string, shift)
-  
+  # convert the numbers back to a character, and join it back into a string
+  puts shifted_array.map(&:chr).join('')
+end
+
+print 'Enter the string to encode: '
+string = gets.chomp
+
+print 'Enter the cipher key (shift amount): '
+shift = gets.chomp.to_i
+
+caesar_cipher(string, shift)
